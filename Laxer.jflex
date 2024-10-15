@@ -14,6 +14,7 @@ import java.util.*;
 keyword = "if" | "then"  | "else"  | "endif"  | "while"  | "do"  | "endwhile"  | "print"  | "newline" | "read"
 operator = "==" | "++" | "--" | "<=" | ">=" | "+=" | "-=" | "*=" | "/=" | "%=" | "!=" | "&&" | "||" | [+\-*/<>=&|!-]
 Identifier = [a-zA-Z][a-zA-Z0-9]* 
+comment = \/\/.*|\/\*[\s\S]*?\*\/
 parenth = [\(|\)]]
 semicolon = [\;]
 
@@ -77,6 +78,7 @@ semicolon = [\;]
     Token token = new Token(Sym.identifier, yytext());
     checksymbolTableAndPut(token);
     return token;
+{Comment} { /* Ignore */ }
 {parenth} {
 	checksymbolTableAndPut(new Token(Sym.parenth, yytext()));
 }
